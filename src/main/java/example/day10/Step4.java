@@ -4,6 +4,7 @@ public class Step4 {
     public static void main(String[] args) {
 
         MyList<String> list = new MyList<>();
+        System.out.println(list);
         list.add( "텍스트1" );
         list.add( "텍스트2" );
         System.out.println( list );
