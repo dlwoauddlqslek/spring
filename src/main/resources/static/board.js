@@ -112,28 +112,29 @@ function readAll() {
 
 
 
-function readOne(BoardDto){
+function readOne(bno){
 $.ajax({
     method: 'get',
-    url: '/example/board/read',
+    url: '/example/board/detail',
+    data:{'bno':bno},
     success: function response (result) {
       console.log(result);
           // 1. 어디에
           let viewPage = document.querySelector('#viewPage');
           // 2. 무엇을
           let html = ``;
-        result.forEach(BoardDto => {
-                        html +=`<h3> 상세 페이지 </h3>
-                                             <div> ${BoardDto.title} </div>
+        
+                        html =`<h3> 상세 페이지 </h3>
+                                             <div> ${result.title} </div>
                                              <div>
-                                               <span> ${BoardDto.view} </span>
-                                               <span> ${BoardDto.date} </span>
+                                               <span> ${result.view} </span>
+                                               <span> ${result.date} </span>
                                              </div>
-                                             <div> ${BoardDto.content} </div>
-                                             <button onclick="_update( ${ index } )">수정</button>
-                                             <button onclick="_delete( ${ index } )">삭제</button>`;
+                                             <div> ${result.content} </div>
+                                             <button onclick="_update( ${ result.bno } )">수정</button>
+                                             <button onclick="_delete( ${ result.bno } )">삭제</button>`;
                         console.log(html);
-                    });
+                    
         // [3] 출력
         viewPage.innerHTML = html;
     }//success end
@@ -196,24 +197,26 @@ $.ajax({
 //  viewPage.innerHTML = html;
 //}
 //// 4. 수정함수 실행조건 : (누구를)1. 수정버튼 클릭할떄
-//function _update( index ){
-//  // 패스워드 검증 함수를 호출후 반환값이 false 이면 수정함수 강제종료
-//  if( _pwConfirm(index) == false ) return;
-//
-//  // 배열내 특정 데이터 수정
-//  let board = boardList[index].split(',');   // 1. 해당 게시물 분류
-//    // 새로운 제목과 내용 입력받는다.
-//  let utitle = prompt('수정할제목');
-//  let ucontent = prompt('수정할내용');
-//    // 수정할 정보로 구성 : 새로운 제목과 내용만 수정 변수로 구성 하고 나머지는 기존 데이터 사용
-//  let uboard = `${ utitle },${ ucontent },${ board[2]},${ board[3]},${ board[4]}`;
-//    // 선택된 인덱스의 수정할 정보 대입
-//  boardList[index] = uboard;
-//    // 화면 새로고침( 재 출력: 데이터 변화가 있기 때문에  )
-//  _allRead();
-//  _read( index );
-//} // for end
-//
+function _update( bno ){
+ 
+ let bpw=prompt('비밀번호');
+ let ucontent = prompt('수정할내용');
+ $.ajax({
+  url:"/example/board/update",
+  method:"put",
+  data:{'bpw':bpw,'bno':bno,'content':ucontent},
+  success:function(result){
+    if(result){
+      alert("수정성공")
+      
+      readOne( bno );
+    }else(alert('수정실패'))
+  }
+
+ })
+   // 
+} // for end
+
 //// 5. 삭제함수 실행조건 : (누구를)1. 삭제버튼 클릭할때
 //function _delete( index ){
 //  // 패스워드 검증 함수를 호출후 반환값이 false 이면 삭제함수 강제종료

@@ -1,18 +1,18 @@
 package example.day09.todo;
 
+import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
+@Component
 public class TodoDao {
 
-    Connection conn;
-    PreparedStatement ps;
-    ResultSet rs;
 
-    public TodoDao() {
+
+    private TodoDao() {
         try {   // DB 연동
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/todoList", "root", "1234");
@@ -21,9 +21,9 @@ public class TodoDao {
         }
     }
 
-    private static TodoDao todoDao=new TodoDao();
-    public static TodoDao getInstance(){return todoDao;}
-
+    private Connection conn;
+    PreparedStatement ps;
+    ResultSet rs;
 
 
 
