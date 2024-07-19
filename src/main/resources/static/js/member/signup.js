@@ -21,12 +21,12 @@ function doSignup(){ console.log( 'doSignup()' )
         success : ( result )=>{ console.log( result ); // HTTP 받을 데이터
             // 4. 결과에 따른 처리
             if( result ){alert('회원가입성공');
-                //location.href="/member/login";
+                location.href="/member/login";
             }else{  alert('회원가입실패');  }
         } // success end
     } ); // ajax end
 
-    alert('ajax 처리 이후');
+    //alert('ajax 처리 이후');
     // async : true  ,  alert('ajax 처리 이후'); -> alert('회원가입성공');
     // async : false ,  alert('회원가입성공'); ->  alert('ajax 처리 이후');
 } // method end

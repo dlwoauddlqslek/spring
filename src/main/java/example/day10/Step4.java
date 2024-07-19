@@ -13,7 +13,6 @@ public class Step4 {
         list.remove( 0 );
         System.out.println( list );
 
-
         MyList<Integer> list2 = new MyList<>();
         list2.add( 1 );
         list2.add( 2 );

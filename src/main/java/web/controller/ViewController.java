@@ -2,6 +2,8 @@ package web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 // == AJAX 통신용이 아닌 템플릿 반환 하는 컨트롤러== //
 // @RestController // @Controller + @ResponseBody( 응답 JSON객체 )
@@ -20,5 +22,9 @@ public class ViewController {
     @GetMapping("/member/login")
     public String mLogin(){
         return "/member/login.html";
+    }
+    @GetMapping("/member/mypage")
+    public String mMyPage(){
+        return "/member/mypage.html";
     }
 }
