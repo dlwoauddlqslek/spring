@@ -1,0 +1,73 @@
+회원가입 구현
+	[1] 회원가입 DB 설계 ( 강의 카톡방 SQL 사용 )
+	[2] MemberDto 클래스 (롬복 사용)
+	[3] MemberController 에서 회원가입 메소드  구현 ( HTTP 매핑 테스트 )
+		회원가입 REST : POST , /member/signup
+		받기/요청 : 아이디 , 비밀번호 , 이름 , 이메일 , 연락처
+		주고/응답 : boolean : true/false
+	[4] MemberService 에서 회원가입 메소드 구현 ( SpringMvc 빈 사용 )
+	[5] MemberDao 에서  회원가입 메소드 구현
+	===============================
+	[6] Talend API 테스트 진행
+	===============================
+	[7] JS 에서 AJAX 이용한 회원가입 구현
+		- 성공시 '회원가입성공' alert 출력 후 로그인페이지로 이동
+		- 실패시 '회원가입실패' alert 출력
+로그인 구현
+    [1] MemberController 에서 로그인 메소드  구현 ( HTTP 매핑 테스트 )
+		회원가입 REST : POST , /member/login
+		받기/요청 : 아이디 , 비밀번호
+		주고/응답 : boolean
+	[2] MemberService 에서 로그인 메소드 구현 ( SpringMvc 빈 사용 )
+	[3] MemberDao 에서  로그인 메소드 구현
+	===============================
+	[4] Talend API 테스트 진행
+    ===============================
+    [5] HTML · JS 에서 AJAX 이용한 회원가입 구현
+        - 성공시 '로그인 성공' alert 출력 후 메인페이지 이동
+        - 실패시 '로그인 실패' alert 출력
+
+내정보 페이지 구현
+    - 현재 로그인된 회원의 모든 정보(비밀번호제외) 출력
+    [1] MemberController 에서 내정보 메소드  구현
+        마이페이지 REST : GET , /member/my/info
+        받기/요청 : x
+        주고/응답 : memberDto
+        * 로그인 세션 활용
+    [2] MemberService 에서 내정보 메소드 구현
+    [3] MemberDao 에서  내정보 메소드 구현
+    ===============================
+    [4] templates --> member 폴더내 myinfo.html
+    [5] ViewController 에서 해당 템플릿 매핑
+        마이페이지 VIEW GET /member/mypage
+    [6] header.html 에서 <a> 링크 연결
+        <li> <a href="/member/mypage"> 내정보 </a> </li>
+    [7] HTML · JS 에서 AJAX 이용한 회원가입 구현
+        - 성공시 '로그인 성공' alert 출력 후 메인페이지 이동
+        - 실패시 '로그인 실패' alert 출력
+=========================================> 어제코드+오늘코드 ==> 카톡 링크 제출
+
+아이디 중복검사 구현
+    - 회원가입시 입력한 아이디가 기존 회원들이 사용중인지 아닌지 검사.
+    [1] MemberController 에서 아이디 중복검사  구현
+        마이페이지 REST : GET , /member/idcheck
+        받기/요청 : 입력받은 아이디
+        주고/응답 : true : 중복 상태 , false : 중복이 아닌 상태
+    [2] MemberService 에서 내정보 메소드 구현
+    [3] MemberDao 에서  내정보 메소드 구현
+	===============================
+	[4] Talend API 테스트 진행
+    ===============================
+    [5] HTML · JS 에서 AJAX 이용한 회원가입 구현
+        - 성공시 '로그인 성공' alert 출력 후 메인페이지 이동
+        - 실패시 '로그인 실패' alert 출력
+
+
+
+
+
+
+
+
+
+

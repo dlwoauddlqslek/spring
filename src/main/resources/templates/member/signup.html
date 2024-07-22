@@ -8,11 +8,16 @@
 <div th:replace="~{/header.html::header}"></div>
     회원가입 페이지
     <form>
-        아이디: <input id="id"><br>
-        비밀번호: <input id="pw"><br>
-        이름: <input id="name"><br>
-        이메일: <input id="email"><br>
-        연락처: <input id="phone"><br>
+        아이디: <input id="id" onkeyup="idCheck()"><div class="idCheckBox"></div>
+        비밀번호: <input id="pw" onkeyup="pwCheck()" type="password"><br>
+        비밀번호확인: <input id="pwConfirm" onkeyup="pwCheck()" type="password">
+        <div class="pwCheckBox"></div>
+        이름: <input id="name" onkeyup="nameCheck()">
+        <div class="nameCheckBox"></div>
+        이메일: <input id="email" onkeyup="emailCheck()">
+        <div class="emailCheckBox"></div>
+        연락처: <input id="phone" onkeyup="phoneCheck()">
+        <div class="phoneCheckBox"></div>
         <button type="button" onclick="doSignup()">회원가입</button>
 
 

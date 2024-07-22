@@ -1,6 +1,7 @@
 package web.model.dao;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
 import web.model.dto.MemberDto;
 
 import java.sql.PreparedStatement;
@@ -54,6 +55,20 @@ public class MemberDao extends Dao {
                         .build();
             }
         }catch (Exception e ){  System.out.println(e);  } return null;
+    }
+
+
+    public boolean idCheck(String id){
+        System.out.println("MemberDao.idCheck");
+        try { String sql="select * from member where binary(id)=?";
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setString(1,id);
+            ResultSet rs= ps.executeQuery();
+            if (rs.next()){
+                return true;
+            }
+        }catch (Exception e){System.out.println("e = " + e);}
+        return false;
     }
 }
 
