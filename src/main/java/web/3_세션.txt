@@ -12,8 +12,10 @@
         2. (세션객체).setAttribute( 'key' , value ) : 세션 객체내 속성 추가
             - 모든 데이터들의 value 타입은 Object 자동 형변환이 된다.
         3. (세션객체).getAttribute( 'key' ) : 세션 객체내 속성의 값 호출
-            - 강제형변환 이 필요하다.
-        4. (세견객체).invalidate();     : 세션 객체내 모든 속성을 제거
+            - 강제형 변환변환 이 필요하다.
+        4. (세션객체).invalidate();     : 세션 객체내 모든 속성을 제거
+        5. (세션객체).setMaxInactiveInterval( 초 );      : 해당 초 만큼의 세션 생명주기 설정
+
 
 
 

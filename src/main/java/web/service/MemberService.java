@@ -3,6 +3,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import web.model.dao.MemberDao;
@@ -69,11 +70,27 @@ public class MemberService {
         return memberDao.mMyInfo( loginMno );
     }
 
-
+    // 6. 아이디 중복 검사
     public boolean idCheck(String id){
         System.out.println("MemberService.idCheck");
         return memberDao.idCheck(id);
     }
+
+    public boolean mUpdate(String newName,String pw,String newPw,String newPhone){
+        MemberDto loginDto=mLoginCheck();
+        int loginMno= loginDto.getNo();
+        return memberDao.mUpdate(newName,pw,newPw,newPhone,loginMno);
+    }
+
+    public boolean mLeave(String pw){
+        HttpSession session= request.getSession();
+        MemberDto loginDto=mLoginCheck();
+        int loginMno= loginDto.getNo();
+        return memberDao.mLeave(loginMno,pw);
+    }
+
+
+
 
 } // class end
 

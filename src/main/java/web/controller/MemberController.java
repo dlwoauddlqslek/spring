@@ -2,10 +2,7 @@ package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import web.model.dto.MemberDto;
 import web.service.MemberService;
 
@@ -54,6 +51,17 @@ public class MemberController {
         System.out.println("MemberController.idCheck");
         return memberService.idCheck(id);
     }
+
+    @PutMapping("/update")
+    public boolean mUpdate(String newName,String pw,String newPw,String newPhone){
+        return memberService.mUpdate(newName,pw,newPw,newPhone);
+    }
+
+    @DeleteMapping("/leave")
+    public boolean mLeave(String pw){
+        return memberService.mLeave(pw);
+    }
+
 
 }
 

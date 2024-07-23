@@ -24,7 +24,14 @@ public class ViewController {
         return "/member/login.html";
     }
     @GetMapping("/member/mypage")
-    public String mMyPage(){
-        return "/member/mypage.html";
+    public String mMyPage(){return "/member/mypage.html";
+    }
+    @GetMapping("/member/leave")
+    public String mLeave(){
+        return "/member/leave.html";
+    }
+    @GetMapping("/member/update")
+    public String mUpdate(){
+        return "/member/update.html";
     }
 }

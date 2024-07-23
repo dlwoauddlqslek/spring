@@ -1,6 +1,7 @@
 package web.model.dao;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import web.model.dto.MemberDto;
 
@@ -68,6 +69,33 @@ public class MemberDao extends Dao {
                 return true;
             }
         }catch (Exception e){System.out.println("e = " + e);}
+        return false;
+    }
+
+    public boolean mLeave(int no,String pw){
+        try {String sql="delete from member where no=? and pw=?;";
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setInt(1,no);
+            ps.setString(2,pw);
+            int count =ps.executeUpdate();
+            if (count==1){return true;}
+
+        }catch (Exception e){System.out.println(e);}
+        return false;
+    }
+
+    public boolean mUpdate(String newName,String pw,String newPw,String newPhone,int no){
+        try {String sql="update member set name=?,pw=?,phone=? where no=? and pw=?; ";
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setString(1,newName);
+            ps.setString(2,newPw);
+            ps.setString(3,newPhone);
+            ps.setInt(4,no);
+            ps.setString(5,pw);
+            int count=ps.executeUpdate();
+            if (count==1){return true;}
+
+        }catch (Exception e){System.out.println(e);}
         return false;
     }
 }
