@@ -34,4 +34,27 @@ public class ViewController {
     public String mUpdate(){
         return "/member/update.html";
     }
+    //[9] 글전체 출력 페이지
+    @GetMapping("/board/getall")
+    public String getAll(){
+        return "/board/boardgetall.html";
+    }
+
+    //[10] 글 작성 페이지
+    @GetMapping("/board/write")
+    public String boardWrite(){
+        return "/board/boardwrite.html";
+    }
+
+    // 11 글 상세 페이지
+    @GetMapping("/board/getread")
+    public String boardRead(){
+        return "/board/boardread.html";
+    }
+
+    // 12 글 수정 페이지
+    @GetMapping("/board/edit")
+    public String boardEdit(){
+        return "/board/boardedit.html";
+    }
 }

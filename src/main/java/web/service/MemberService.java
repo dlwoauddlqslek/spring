@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import web.model.dao.MemberDao;
 import web.model.dto.MemberDto;
 
+import java.util.Map;
+
 @Service
 public class MemberService {
 
@@ -76,14 +78,14 @@ public class MemberService {
         return memberDao.idCheck(id);
     }
 
-    public boolean mUpdate(String newName,String pw,String newPw,String newPhone){
+    public boolean mUpdate(Map<String,String >map){
         MemberDto loginDto=mLoginCheck();
         int loginMno= loginDto.getNo();
-        return memberDao.mUpdate(newName,pw,newPw,newPhone,loginMno);
+        map.put("no",String.valueOf(loginMno));
+        return memberDao.mUpdate(map);
     }
 
     public boolean mLeave(String pw){
-        HttpSession session= request.getSession();
         MemberDto loginDto=mLoginCheck();
         int loginMno= loginDto.getNo();
         return memberDao.mLeave(loginMno,pw);

@@ -27,7 +27,12 @@ AJAX
         6. success : ( r ) => { }                               : 통신 성공 시 실행되는 함수 -> 응답 데이터가 함수의 매개변수로 받는다,
         7. error : ( e ) => { }                                 : 통신 실패 시 실행되는 함수 -> 실패 사유가 함수의 매개변수로 받는다.
 
-
+      * 참고
+                HTTP 통신 필요한 이유 : HTTP는 문자열/바이트 데이터만 주고 받는다.
+                JSON.stringify( ) : JS 객체타입을 문자열타입 으로 변환
+                    { key : value }  =>  "{ key : value }"
+                JSON.parse( )     : 문자열타입을 JS객체타입 으로 변환
+                    "{ key : value }" => { key : value }
 
 
 

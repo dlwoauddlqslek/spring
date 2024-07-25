@@ -12,9 +12,15 @@
           phone varchar(15) not null unique,         -- 회원 핸드폰 번호
           constraint member_no_pk primary key(no )       -- 회원 번호 pk
    );
+   
+   
+   
    select * from member;
+   SET SQL_SAFE_UPDATES = 0;
    
    insert into member(id,pw,name,email,phone) values('qwerasdf','12345','기성','asdf','010-1234-5678');
    #binary 대문자 소문자 구별 가능
-   select * from member where binary(id)='qwerasdf' 
+   #select * from member where binary(id)='qwerasdf' ;
+   
+   #update member set name='성룡',pw='asdf1',phone='010-7894-1851' where no=1 and pw='12345';
    
