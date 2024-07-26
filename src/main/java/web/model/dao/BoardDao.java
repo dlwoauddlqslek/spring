@@ -18,7 +18,7 @@ public class BoardDao extends Dao{
     public ArrayList<BoardDto> bAllPrint(){
         ArrayList<BoardDto> list = new ArrayList<>();
         try{
-            String sql = "select *from board inner join member where board.no = member.no";
+            String sql = "select *from board inner join member on board.no = member.no";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){

@@ -15,12 +15,10 @@ function getall(){
                         <td>${result.bdate}</td>
                         <td>${result.bview}</td>
                     </tr>`;
-
             });
             board.innerHTML=html;
         }
     })
-
 }
 
 function boardRead(bno){

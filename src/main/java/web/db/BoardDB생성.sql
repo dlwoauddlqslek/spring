@@ -25,6 +25,7 @@ create table board(
     constraint board_bcno_fk foreign key( bcno ) references bcategory( bcno ) on update cascade on delete cascade
 );
 select *from board;
+select btitle from board inner join member where board.no = member.no;
 
 
 #샘플
@@ -32,4 +33,4 @@ insert into board(btitle,bcontent,no,bcno) values("테스트제목1","테스트�
 insert into board(btitle,bcontent,no,bcno) values("테스트제목2","테스트내용2",1,2);
 insert into board(btitle,bcontent,no,bcno) values("테스트제목3","테스트내용3",1,3);
 insert into board(btitle,bcontent,no,bcno) values("테스트제목4","테스트내용4",1,4);
-delete from board where bno=1 and no=1;
+

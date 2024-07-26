@@ -14,10 +14,8 @@ import java.util.ArrayList;
 
 @Service
 public class BoardService {
-    @Autowired
-    BoardDao boardDao;
-    @Autowired
-    MemberService memberService;
+    @Autowired BoardDao boardDao;
+    @Autowired MemberService memberService;
     @Autowired FileService fileService;
 
 

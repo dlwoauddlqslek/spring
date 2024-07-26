@@ -26,7 +26,7 @@ function boardRead(){ // 어디에 무엇을 {boardNo : brdNo, title : bTitle, u
             <div class="row">아이디 : ${result.id}</div>
             <div class="row">작성일 : ${result.bdate}</div>
             <div class="row">조회수 : ${result.bview}</div>
-            <div class="row">파일 : ${result.bfile}</div>
+            <div class="row">첨부파일 : ${result.bfile==null?"":result.bfile}<a href="/file/download?filename=${result.bfile}">다운로드</a></a></div>
             `
             boardBox.innerHTML=divHTML;
         }
