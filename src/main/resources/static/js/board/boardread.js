@@ -48,5 +48,5 @@ function _delete(){
 }
 
 function _edit(){
-    location.href="/board/edit?bno="+currentBno;
+    location.href=`/board/edit?bno=${currentBno}`;
 }

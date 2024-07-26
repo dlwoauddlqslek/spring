@@ -8,13 +8,13 @@
 <div th:replace="~{ /header.html :: header }"></div>
 <h3> 게시물 수정 페이지 </h3>
 <div>
-    <div>  <select>
+    <div>  <select id="bcno">
         <option value="1"> 자유 </option>
         <option value="2"> 노하우 </option>
         <option value="3"> 판매 </option>
     </select>  </div>
-    <div> <input type="text"  /> </div>
-    <div>  <textarea> </textarea> </div>
+    <div> <input type="text" id="btitle" /> </div>
+    <div>  <textarea id="bcontent"> </textarea> </div>
     <div>
         <button type="button" onclick="doBoardEdit()">수정</button>
     </div>

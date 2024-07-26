@@ -56,8 +56,16 @@ public class BoardService {
     }
 
     // 5. 글 수정
-    public boolean bEdit(int bno){return boardDao.bEdit(bno);}
-
+    public boolean bEdit(BoardDto boardDto) {
+        MemberDto loginDto = memberService.mLoginCheck();
+        if (loginDto == null) {
+            return false;
+        } else {
+            int loginMno = loginDto.getNo();
+            boardDto.setNo(loginMno);
+            return boardDao.bEdit(boardDto);
+        }
+    }
     // 6. 글 삭제
     public boolean bDelete(int bno){
         MemberDto loginDto=memberService.mLoginCheck();

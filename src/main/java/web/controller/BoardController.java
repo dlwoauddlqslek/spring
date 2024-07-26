@@ -41,7 +41,7 @@ public class BoardController {
 
     // 5. 글 수정
     @PutMapping("/edit")
-    public boolean bEdit(int bno){return boardService.bEdit(bno);}
+    public boolean bEdit(BoardDto boardDto){return boardService.bEdit(boardDto);}
 
     // 6. 글 삭제
     @DeleteMapping("/delete")
