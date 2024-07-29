@@ -57,4 +57,8 @@ public class ViewController {
     public String boardEdit(){
         return "/board/boardedit.html";
     }
+
+    // api테스트(주유소)
+    @GetMapping("/api")
+    public String api(){return "/api/datago.html";}
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace="~{/header.html::header}"></div>
+    <div class="container">
+        <div>
+            <h3>카카오 지도 샘플</h3>
+            <!--카카오 지도 표시할 구역-->
+            <div id="map" style="width:500px;height:400px;"></div>
+        </div>
+        <div>
+            <h3>인천시 동구 약국 현황</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>상호</th>
+                        <th>전화번호</th>
+                        <th>주소</th>
+                    </tr>
+                    </thead>
+                    <tbody class="api2">
+
+                    </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h3>부평구 주유소 현황</h3>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>상호</th>
+                    <th>전화번호</th>
+                    <th>주소</th>
+                </tr>
+                </thead>
+                <tbody class="api1">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:replace="~{/footer.html::footer}"></div>
+    <!--카카오지도 api js+발급된 app키-->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60fabe006731025dd888aaa323682b3c"></script>
+    <script src="/js/api/datago.js"></script>
+</body>
+</html>

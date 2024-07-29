@@ -88,3 +88,13 @@ function _write(){
     })
 }
 
+//섬머노트 실행
+$(document).ready(function() {
+
+    let option={
+        height:500,
+        lang:'ko-KR'
+    }
+
+    $('#summernote').summernote(option);
+  });

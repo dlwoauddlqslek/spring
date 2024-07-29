@@ -18,7 +18,7 @@ import java.util.UUID;
 @Service
 public class FileService {
 
-    String uploadPath="C:\\Users\\tj-bu-703-013\\Desktop\\오전반\\spring\\src\\main\\resources\\static\\upload\\";
+    String uploadPath="C:\\Users\\tj-bu-703-021\\Desktop\\오전반\\src\\main\\resources\\static\\upload\\";
 
     public String fileUpload(MultipartFile multipartFile){
         System.out.println(multipartFile.getContentType());
