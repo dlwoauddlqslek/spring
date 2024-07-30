@@ -3,6 +3,7 @@ package web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import web.model.dto.BoardDto;
+import web.model.dto.BoardPageDto;
 import web.service.BoardService;
 
 import java.util.ArrayList;
@@ -15,8 +16,10 @@ public class BoardController {
 
     // 1. 글 전체 출력
     @GetMapping("/all")
-    public ArrayList<BoardDto> bAllPrint(){
-        return boardService.bAllPrint();
+    public BoardPageDto bAllPrint(BoardPageDto pageDto){
+
+
+        return boardService.bAllPrint(pageDto);
     }   // bAllPrint() end
 
     // 2. 글 쓰기 카테고리 불러오기

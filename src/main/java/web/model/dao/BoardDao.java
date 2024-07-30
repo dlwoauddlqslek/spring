@@ -15,11 +15,20 @@ public class BoardDao extends Dao{
 
     private PreparedStatement ps; private ResultSet rs;
     // 1. 글 전체 출력
-    public ArrayList<BoardDto> bAllPrint(){
+    public ArrayList<BoardDto> bAllPrint(int startRow,int pageBoardSize,int bcno){
         ArrayList<BoardDto> list = new ArrayList<>();
         try{
-            String sql = "select *from board inner join member on board.no = member.no";
+            String sql = "select * " +                   // 조회
+                    " from board inner join member " +  // 조인 테이블
+                    " on board.no = member.no ";       // 조인 조건
+                    if (bcno>=1){sql+= " where bcno= "+bcno;}                 // 일반 조건
+                    // 전체보기는 where절 생략,bcno=0
+                    // 카테고리별은 where절 삽입,bcno>=1
+                    sql +=" order by board.bno desc " +       // 정렬조건, 내림차수
+                    " limit ?,?;";                      //레코드 제한
             PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,startRow);
+            ps.setInt(2,pageBoardSize);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 BoardDto boardDto = BoardDto.builder()
@@ -36,6 +45,27 @@ public class BoardDao extends Dao{
         }
         return list;
     }   // bAllPrint() end
+
+    // 전체 게시물수 반환 처리
+    public int getTotalBoardSize(int bcno){
+        try {
+            String sql="select count(*) from board";
+
+            // 카테고리가 1 이상이면 카테고리 존재(pk번호)
+            if (bcno>0){
+                sql+=" where bcno="+bcno;
+            }
+            System.out.println("sql = " + sql);
+            //
+
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            if (rs.next()){
+                return rs.getInt(1); // 총 게시물수
+            }
+        }catch (Exception e){System.out.println("e = " + e);}
+        return 0;
+    }
 
     public ArrayList<BoardDto> getBoardCategory() {
         try{

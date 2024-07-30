@@ -27,6 +27,23 @@ create table board(
 select *from board;
 select btitle from board inner join member where board.no = member.no;
 
+# limit 연산자 이용한 레코드 제한 출력
+	# limit 개수: 개수만큼의 레코드 조회
+    # limit 시작레코드, 개수: 시작레코드(0~) 부터 개수만큼의 레코드 조회
+select * from board limit 0;
+select * from board limit 1;
+select * from board limit 1,2;
+select * from board limit 1,3;
+select * from board limit 0,3;
+	# 페이징 처리 활용, 가정: 하나의 페이지당 게시물표시는 5개씩
+    # 1페이지 limit(0,5);
+select * from board limit 0,5;
+	# 2페이지
+select * from board limit 5,5;
+	# 3페이지
+select * from board limit 10,5;
+
+
 
 #샘플
 insert into board(btitle,bcontent,no,bcno) values("테스트제목1","테스트내용1",1,1);
