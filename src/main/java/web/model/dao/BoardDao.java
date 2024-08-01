@@ -15,7 +15,7 @@ public class BoardDao extends Dao{
 
     private PreparedStatement ps; private ResultSet rs;
     // 1. 글 전체 출력
-    public ArrayList<BoardDto> bAllPrint(int startRow,int pageBoardSize,int bcno){
+    public ArrayList<BoardDto> bAllPrint(int startRow,int pageBoardSize,int bcno,String searchKey , String searchKeyword){
         ArrayList<BoardDto> list = new ArrayList<>();
         try{
             String sql = "select * " +                   // 조회
@@ -24,6 +24,13 @@ public class BoardDao extends Dao{
                     if (bcno>=1){sql+= " where bcno= "+bcno;}                 // 일반 조건
                     // 전체보기는 where절 생략,bcno=0
                     // 카테고리별은 where절 삽입,bcno>=1
+            // 4. 일반 조건2
+            if( searchKeyword.isEmpty() ){ }
+            else{
+                if( bcno >=1 ){ sql += " and "; }
+                else{ sql += " where "; }
+                sql += searchKey + " like '%"+searchKeyword+"%'";
+            }
                     sql +=" order by board.bno desc " +       // 정렬조건, 내림차수
                     " limit ?,?;";                      //레코드 제한
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -47,13 +54,21 @@ public class BoardDao extends Dao{
     }   // bAllPrint() end
 
     // 전체 게시물수 반환 처리
-    public int getTotalBoardSize(int bcno){
+    public int getTotalBoardSize(int bcno,String searchKey , String searchKeyword){
         try {
             String sql="select count(*) from board";
 
             // 카테고리가 1 이상이면 카테고리 존재(pk번호)
-            if (bcno>0){
-                sql+=" where bcno="+bcno;
+            if( bcno >= 1 ){ sql += " where bcno = "+bcno; } // 1. 전체보기 : select count(*) as 총게시물수 from board  // 2. 카테고리 보기 : select count(*) as 총게시물수 from board where bcno = 숫자
+            // 검색이 존재 했을때 , keyword가 존재하면
+            if( searchKeyword.isEmpty() ){} // 문자열이 비어 있으면 , 검색이 없다라는 의미의 뜻 으로 활용
+            else{  // 비어있지 않으면 , 검색이 있다라는 의미의 뜻 으로 활용
+                // - 카테고리가 있을때는 and 추가
+                if( bcno >= 1 ) { sql += " and "; }
+                // - 카테고리가 없을때[전체보기]는 where 추가
+                else { sql += " where "; }
+                // 검색 sql
+                sql += searchKey +" like '%"+searchKeyword+"%' ";
             }
             System.out.println("sql = " + sql);
             //

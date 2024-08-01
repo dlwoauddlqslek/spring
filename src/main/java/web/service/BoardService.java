@@ -31,7 +31,7 @@ public class BoardService {
         int startRow=(pageDto.getPage()-1)*pageBoardSize;
 
         // 전체 게시물 수: 카테고리번호 별
-        int totalBoardSize=boardDao.getTotalBoardSize(pageDto.getBcno());
+        int totalBoardSize=boardDao.getTotalBoardSize(pageDto.getBcno(),pageDto.getSearchKey() , pageDto.getSearchKeyword());
         // totalPage: 전체 페이지수 구하기
             // 총 페이지수 계산식: 전체게시물수/페이지당게시물수
                 // 총 게시물수: 23개, 페이지당 5개씩 게시물 출력, 총 페이지수: 4페이지+1 => 5페이지
@@ -53,7 +53,7 @@ public class BoardService {
         int endBtn=startBtn+btnSize-1; // 페이지별 끝 버튼 번호 변수, 단 end는 최대페이지수 보다 커질 수 없다.
         if (endBtn>totalPage){endBtn=totalPage;}
         // 게시물 정보 조회
-        List<BoardDto> data= boardDao.bAllPrint(startRow,pageBoardSize,pageDto.getBcno());
+        List<BoardDto> data= boardDao.bAllPrint(startRow,pageBoardSize,pageDto.getBcno(),pageDto.getSearchKey() , pageDto.getSearchKeyword());
 
         // 반환 객체 구성
         BoardPageDto boardPageDto=BoardPageDto.builder()
