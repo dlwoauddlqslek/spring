@@ -7,6 +7,8 @@ import web.model.dto.BoardPageDto;
 import web.service.BoardService;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/board")
 @RestController
@@ -52,6 +54,26 @@ public class BoardController {
     // 6. 글 삭제
     @DeleteMapping("/delete")
     public boolean bDelete(int bno){return boardService.bDelete(bno);}
+        // --- 매개변수
+        // 1. page : 페이징 처리 에서 사용할 현재 페이지번호
+        // 2. bcno : 현재 선택된 카테고리 번호
+        // 3. searchKey : 검색 조회시 사용되는 필드명
+        // 4. searchKeyword : 검색 조회시 사용되는 필드의 값
 
+    // 7. 게시물 댓글 쓰기(기능) 처리
+    @PostMapping("/reply/write")// 새로운 데이터 생성시 민감정보를 requestbody 사용해서 전달 가능, 데이터 전달시 주로 사용하여서 의도파악 가능
+    public boolean bReplyWrite(@RequestBody Map<String ,String> map){
+        System.out.println("BoardController.bReplyWrite");
+        System.out.println("map = " + map);
+        return boardService.bReplyWrite(map);
+    }
+
+    // 8. 댓글 출력
+    @GetMapping("/reply/print")
+    public ArrayList<Map<String ,String>> bReplyPrint(int bno){
+        System.out.println("BoardController.bReplyPrint");
+        System.out.println("bno = " + bno);
+        return boardService.bReplyPrint(bno);
+    }
 
 }   // class end

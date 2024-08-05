@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import web.model.dao.BoardDao;
 import web.model.dto.BoardDto;
@@ -13,6 +14,7 @@ import web.model.dto.MemberDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardService {
@@ -94,6 +96,8 @@ public class BoardService {
 
     // 4. 상세페이지
     public BoardDto bRead(int bno){
+        // 조회수 증가 처리
+        boardDao.bViewIncrease( bno );
         return boardDao.bRead(bno);
     }
 
@@ -118,5 +122,25 @@ public class BoardService {
             int loginMno= loginDto.getNo();
             return boardDao.bDelete(bno,loginMno);
         }
+    }
+    // 7. 댓글 작성
+    public boolean bReplyWrite(Map<String ,String> map){
+        System.out.println("map = " + map);
+        // 작성자(no)는 클라이언트로부터 입력받는 구조가 아니다.
+            // 회원제 댓글 이라는 가정(로그인  정보는 로그인 객체 저장된 상태)
+
+        Object object=memberService.mLoginCheck();
+        if (object==null){return false;}
+        MemberDto loginDto=(MemberDto) object;
+        int no=loginDto.getNo();
+
+        map.put("no",String.valueOf(no));
+        return boardDao.bReplyWrite(map);
+    }
+    // 8. 댓글 출력
+    public ArrayList<Map<String ,String>> bReplyPrint(int bno){
+        System.out.println("BoardService.bReplyPrint");
+        System.out.println("bno = " + bno);
+        return boardDao.bReplyPrint(bno);
     }
 }   // class end

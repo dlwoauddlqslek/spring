@@ -2,8 +2,18 @@ console.log('getall.js');
 // * 페이지 정보들을 관리하는 객체 , 전역변수 , 함수의 매개변수로 관리가힘듬. */
 let pageInfo = { page : 1 ,  bcno : 0 , searchKey : 'btitle' ,  searchKeyword : '' }
     // 1. page : 현재페이지[기본값 1페이지] , 2.bcno : 현재카테고리[기본값 0전체보기] // 3.searchKey:현재검색필드[기본값:제목필드] 4.searchKeyword:현재검색값[기본값:공백]
+// 5. 검색 상태 제거/초기화 함수
+function onSearchClear(){
+    // 1. 입력창 초기화
+    document.querySelector('.searchKey').value = `btitle`
+    document.querySelector('.searchKeyword').value=``;
+    // 2. 전역변수 초기화
+    pageInfo.searchKey = 'btitle';
+    pageInfo.searchKeyword = '';
+}
 // 4. 카테고리 클릭 했을떄
 function onCategory( bcno ){
+    onSearchClear();
     // 1. 전역변수에 bcno 대입
     pageInfo.bcno = bcno;       console.log( '카테고리 변경 '); console.log( pageInfo );
     getall( 1 );   // 2. 새로고침 , 1페이지

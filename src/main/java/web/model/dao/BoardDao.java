@@ -3,12 +3,16 @@ package web.model.dao;
 import lombok.Builder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import web.model.dto.BoardDto;
 import web.model.dto.MemberDto;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class BoardDao extends Dao{
@@ -56,7 +60,9 @@ public class BoardDao extends Dao{
     // 전체 게시물수 반환 처리
     public int getTotalBoardSize(int bcno,String searchKey , String searchKeyword){
         try {
-            String sql="select count(*) from board";
+            String sql ="select count(*) as 총게시물수 " +
+                    " from board inner join member " +
+                    " on board.no = member.no ";
 
             // 카테고리가 1 이상이면 카테고리 존재(pk번호)
             if( bcno >= 1 ){ sql += " where bcno = "+bcno; } // 1. 전체보기 : select count(*) as 총게시물수 from board  // 2. 카테고리 보기 : select count(*) as 총게시물수 from board where bcno = 숫자
@@ -176,6 +182,58 @@ public class BoardDao extends Dao{
             if (count==1){return true;}
         }catch (Exception e){System.out.println("e = " + e);}
         return false;
+    }
+
+    // 7. 조회수 증가 처리
+    public boolean bViewIncrease( int bno ){
+        try{
+            String sql ="update board set bview = bview + 1 where bno =? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt( 1 , bno );
+            int count = ps.executeUpdate();
+            if( count == 1 ) return true;
+        }catch (Exception e ){  System.out.println(e); }
+        return false;
+    } // 5 f end
+
+    // 8. 댓글 작성
+    public boolean bReplyWrite(Map<String ,String> map){
+        try {
+            String sql="insert into breply(brindex,brcontent,no,bno) values(?,?,?,?);";
+            PreparedStatement ps= conn.prepareStatement(sql);
+            ps.setInt(1,Integer.parseInt(map.get("brindex"))); //String 타입이므로 강제로 형변환
+            ps.setString(2,map.get("brcontent"));
+            ps.setInt(3,Integer.parseInt(map.get("no")));
+            ps.setInt(4,Integer.parseInt(map.get("bno")));
+            int count=ps.executeUpdate();
+            if (count==1)return true;
+        }catch (Exception e){System.out.println("e = " + e);}
+        return false;
+    }
+
+    // 9. 댓글 출력
+    public ArrayList<Map<String ,String>>  bReplyPrint(int bno){
+        System.out.println("BoardDao.bReplyPrint");
+        System.out.println("bno = " + bno);
+
+        ArrayList<Map<String ,String>> list2=new ArrayList<>();
+        try {
+            String sql="select * from breply where bno=?;";
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ps.setInt(1,bno);
+            ResultSet rs= ps.executeQuery();
+            while(rs.next()){Map<String,String> list=new HashMap<>();
+                list.put("brno",String.valueOf(rs.getInt(1)));
+                list.put("brindex",String.valueOf(rs.getInt(2)));
+                list.put("brcontent",rs.getString(3));
+                list.put("brdate",rs.getString(4));
+                list.put("no",String.valueOf(rs.getInt(5)));
+                list.put("bno",String.valueOf(rs.getInt(6)));
+                list2.add(list);
+            }
+            
+        }catch (Exception e){System.out.println("e = " + e);}
+        return list2;
     }
 
 }   // class end

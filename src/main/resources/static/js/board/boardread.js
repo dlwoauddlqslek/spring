@@ -26,7 +26,7 @@ function boardRead(){ // 어디에 무엇을 {boardNo : brdNo, title : bTitle, u
             <div class="row">아이디 : ${result.id}</div>
             <div class="row">작성일 : ${result.bdate}</div>
             <div class="row">조회수 : ${result.bview}</div>
-            <div class="row">첨부파일 : ${result.bfile==null?"":result.bfile}<a href="/file/download?filename=${result.bfile}">다운로드</a></a></div>
+            <div class="row">첨부파일 : ${result.bfile==null?"":result.bfile.split('_')[1]}<a href="/file/download?filename=${result.bfile}">${result.bfile==null?"":"다운로드"}</a></a></div>
             `
             boardBox.innerHTML=divHTML;
         }
@@ -49,4 +49,49 @@ function _delete(){
 
 function _edit(){
     location.href=`/board/edit?bno=${currentBno}`;
+}
+
+// 댓글쓰기
+function onReplyWrite(){console.log('onReplyWrite()');
+    // 1.
+    let brcontent = document.querySelector('.brcontent').value
+    
+   
+    let info={brindex:0, //댓글분류, 0이면 상위댓글
+         brcontent:brcontent, bno:currentBno // 현재 보고 있는 게시물 번호
+    } 
+    console.log(info);
+    $.ajax({
+        async:false, method:'post',
+        url:"/board/reply/write",
+        data:JSON.stringify(info),
+        contentType:"application/json",
+        // contentType: false , --> contentType:multipart/form-data 첨부파일(바이너리)
+        // contentType: "application/x-www-form-urlencoded" : ajax 기본값(생략시)
+        success:r=>{console.log(r);
+            if(r){alert('댓글 작성 완료')
+                document.querySelector('.brcontent').value='';
+            }
+            else{alert('댓글 작성 실패 먼저 로그인 해주세요')}
+        } // success end
+    }) // ajax end
+    brPrint();
+} // f end
+brPrint();
+// 댓글 출력
+function brPrint(){
+    let brPrint=document.querySelector('.brPrint');
+    let html='';
+    $.ajax({
+        async:false, method:'get',
+        url:"/board/reply/print",
+        data:{bno:currentBno},
+        success:r=>{console.log(r);
+            r.forEach(r=>{
+                html+=`<div>${r.brcontent}</div>`
+            })
+            brPrint.innerHTML=html;
+            
+        }
+    })
 }
