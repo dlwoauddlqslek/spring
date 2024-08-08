@@ -61,4 +61,13 @@ public class ViewController {
     // api테스트(주유소)
     @GetMapping("/api")
     public String api(){return "/api/datago.html";}
+
+    // 상품등록페이지
+    @GetMapping("/product/register")
+    public String pRegister(){return "/product/register.html";
+    }
+
+    // 상품출력페이지
+    @GetMapping("/product/read")
+    public String getProductAll(){return "/product/getall.html";}
 }

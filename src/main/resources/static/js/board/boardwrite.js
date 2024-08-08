@@ -93,6 +93,7 @@ $(document).ready(function() {
 
     let option={
         height:500,
+        
         lang:'ko-KR'
     }
 

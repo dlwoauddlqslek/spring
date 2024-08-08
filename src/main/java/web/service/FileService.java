@@ -17,8 +17,17 @@ import java.util.UUID;
 
 @Service
 public class FileService {
-
-    String uploadPath="C:\\Users\\tj-bu-703-021\\Desktop\\오전반\\src\\main\\resources\\static\\upload\\";
+    /*
+        프로젝트명
+            - build 폴더: 배포된 클래스/파일들
+            - src 폴더: 배포 전 개발자가 코드(파일)을 작성하는 곳
+        배포 : 내 코드를 웹서버에 올림(배포)으로써 외부(클라이언트)로 부터 리소스 제공할 수 있다.
+    */
+    // 파일 저장된 위치 경로 정의 필드
+    // 배포 전
+    //String uploadPath="C:\\Users\\tj-bu-703-021\\Desktop\\오전반\\src\\main\\resources\\static\\upload\\";
+    // 배포 후
+    String uploadPath="C:\\Users\\tj-bu-703-021\\Desktop\\오전반\\build\\resources\\main\\static\\upload\\";
 
     public String fileUpload(MultipartFile multipartFile){
         System.out.println(multipartFile.getContentType());
