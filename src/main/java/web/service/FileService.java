@@ -57,23 +57,33 @@ public class FileService {
     public void fileDownload(String filename) {
         System.out.println("FileService.fileDownload");
         System.out.println("filename = " + filename);
+        // 1. 다운로드할 경로 설정 (uploadPath)
         String downloadPath=uploadPath+filename;
+        // - File 클래스는 file 관련된 다양한 메서드를 제공
         File file=new File(downloadPath);
+        // 해당 경로 파일이 존재하면 true, 아니면 false -> false시 return
         if (!file.exists()){return;}
+        // 2. 해당 다운로드할 파일을 JAVA로 바이트 형식으로 읽어들이기
         try {
             //====================파일을 바이트 배열로 읽어오기
+            // 2-1. 파일 입력 스트림 객체 생성
             BufferedInputStream fin = new BufferedInputStream(new FileInputStream(downloadPath));
+            // 2-2. 파일 용량만큼 배열 선언 (여러개의 바이트가 한 파일)
             long fileSize=file.length();
             byte[] bytes=new byte[(int)fileSize];
-            fin.read(bytes);
+            fin.read(bytes); // 경로에 해당하는 파일을 바이트로 가져오기
             fin.close();
             System.out.println(Arrays.toString(bytes));
-            //====================읽어온 바이트배열을 HTTP 바이트 형식으로 응답하기
 
+            //====================읽어온 바이트배열을 HTTP 바이트 형식으로 응답하기
+            // 3. HTTP 스트림으로 응답하기
+            // 3-1 출력 스트림 객체 생성
             //BufferedOutputStream fout=new BufferedOutputStream(response.getOutputStream());
             ServletOutputStream fout=response.getOutputStream();
             response.setHeader("Content-Disposition","attachment;filename="+ URLEncoder.encode(filename.split("_")[1],"UTF-8"));
+            // 3-2 바이트 배열 내보내기/출력/쓰기
             fout.write(bytes);
+            // 쓰고 난 후 버퍼 닫기
             fout.close();
         }catch (Exception e){System.out.println("e = " + e);}
     }
