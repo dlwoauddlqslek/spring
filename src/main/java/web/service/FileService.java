@@ -67,7 +67,8 @@ public class FileService {
         try {
             //====================파일을 바이트 배열로 읽어오기
             // 2-1. 파일 입력 스트림 객체 생성
-            BufferedInputStream fin = new BufferedInputStream(new FileInputStream(downloadPath));
+            //BufferedInputStream fin = new BufferedInputStream(new FileInputStream(downloadPath));
+            FileInputStream fin = new FileInputStream(downloadPath);
             // 2-2. 파일 용량만큼 배열 선언 (여러개의 바이트가 한 파일)
             long fileSize=file.length();
             byte[] bytes=new byte[(int)fileSize];
