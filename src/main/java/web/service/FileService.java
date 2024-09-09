@@ -51,8 +51,8 @@ public class FileService {
         return filename;
     }
 
-    @Autowired private HttpServletRequest request;
-    @Autowired private HttpServletResponse response;
+    @Autowired private HttpServletRequest request;  // HTTP 요청 객체, HTTP로 요청이 들어온 정보와 기능 포함
+    @Autowired private HttpServletResponse response;  // HTTP 응답 객체, HTTP로 응답할 때의 정보와 기능 포함
 
     public void fileDownload(String filename) {
         System.out.println("FileService.fileDownload");
@@ -67,7 +67,6 @@ public class FileService {
         try {
             //====================파일을 바이트 배열로 읽어오기
             // 2-1. 파일 입력 스트림 객체 생성
-            //BufferedInputStream fin = new BufferedInputStream(new FileInputStream(downloadPath));
             FileInputStream fin = new FileInputStream(downloadPath);
             // 2-2. 파일 용량만큼 배열 선언 (여러개의 바이트가 한 파일)
             long fileSize=file.length();
@@ -79,12 +78,14 @@ public class FileService {
             //====================읽어온 바이트배열을 HTTP 바이트 형식으로 응답하기
             // 3. HTTP 스트림으로 응답하기
             // 3-1 출력 스트림 객체 생성
-            //BufferedOutputStream fout=new BufferedOutputStream(response.getOutputStream());
             ServletOutputStream fout=response.getOutputStream();
+            // Content-Disposition : 브라우저가 제공하는 다운로드 형식
+            // attachment;filename="다운로드에 표시할 파일명"
+            // URLEncoder.encode() : URL 경로상의 한글을 인코딩
+            // 업로드시 파일명 앞에 uuid를 추가하였기 때문에 스플릿을 통해 진짜 파일명만 가져온다
             response.setHeader("Content-Disposition","attachment;filename="+ URLEncoder.encode(filename.split("_")[1],"UTF-8"));
             // 3-2 바이트 배열 내보내기/출력/쓰기
             fout.write(bytes);
-            // 쓰고 난 후 버퍼 닫기
             fout.close();
         }catch (Exception e){System.out.println("e = " + e);}
     }
